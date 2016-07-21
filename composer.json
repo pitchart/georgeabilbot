@@ -11,6 +11,11 @@
         "phpunit/phpunit": "^5.4",
         "squizlabs/php_codesniffer": "^2.6"
     },
+    "autoload": {
+        "psr-4": {
+            "Pitchart\\GeorgeAbilbot\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Julien VITTE",
