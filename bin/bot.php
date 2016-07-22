@@ -23,6 +23,7 @@ $application = (new Application('George Abilbot', '0.1~dev'))
 
 $application->addCommands([
     new Command\Info(),
+    new Command\Test(),
     new Command\Bot(),
 ]);
 $application->setDefaultCommand('info');
