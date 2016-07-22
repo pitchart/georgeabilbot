@@ -1,0 +1,3 @@
+parameters:
+  twitter.access_token: ~
+  twitter.access_token_secret: ~

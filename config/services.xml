@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter type="constant" key="oauth.signature">OAUTH_SIG_METHOD_HMACSHA1</parameter>
+        <parameter type="constant" key="oauth.type">OAUTH_AUTH_TYPE_URI</parameter>
+    </parameters>
+    <services>
+        <service id="oauth" class="Oauth">
+            <argument>%twitter.consumer_key%</argument>
+            <argument>%twitter.consumer_secret%</argument>
+            <argument>%oauth.signature%</argument>
+            <argument>%oauth.type%</argument>
+            <call method="setToken">
+                <argument>%twitter.access_token%</argument>
+                <argument>%twitter.access_token_secret%</argument>
+            </call>
+        </service>
+        <service id="twitter" class="Pitchart\GeorgeAbilbot\Service\Twitter">
+            <argument type="service" id="oauth" />
+        </service>
+
+    </services>
+</container>
