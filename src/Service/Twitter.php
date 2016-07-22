@@ -2,6 +2,8 @@
 
 namespace Pitchart\GeorgeAbilbot\Service;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
+
 class Twitter
 {
     /** @var \OAuth */
@@ -12,14 +14,14 @@ class Twitter
     private $host = 'https://api.twitter.com/';
 
     private $actions = array(
-        'update' => 'statuses/update.json',
+        'update' => 'statuses/update',
     );
 
     /**
      * Twitter constructor.
      * @param \OAuth $oauth
      */
-    public function __construct(\OAuth $oauth, $version = null)
+    public function __construct(TwitterOAuth $oauth, $version = null)
     {
         $this->oauth = $oauth;
         if ($version) {
@@ -28,15 +30,14 @@ class Twitter
     }
 
     public function publish($status){
-        $array = array(
+        return $this->oauth->post($this->getUrl('update'), array(
             'status' => $status,
-        );
-        $this->oauth->fetch($this->getUrl('update'), $array, OAUTH_HTTP_METHOD_POST);
+        ));
     }
 
     private function getUrl($type) {
         if (array_key_exists($type, $this->actions)) {
-            return sprintf('%s%s/%s', $this->host, $this->version, $this->actions[$type]);
+            return $this->actions[$type];
         }
         throw new \InvalidArgumentException('Invalid url type');
     }
