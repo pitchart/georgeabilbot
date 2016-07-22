@@ -2,6 +2,8 @@
     "name": "pitchart/georgeabilbot",
     "description": "Twitter Bot le plus classe du monde",
     "require": {
+        "php": "^5.6",
+        "ext-oauth": "*",
         "symfony/console": "^3.1",
         "symfony/dependency-injection": "^3.1",
         "padraic/phar-updater": "^1.0",
