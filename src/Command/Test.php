@@ -41,7 +41,8 @@ class Test extends Command implements ContainerAwareInterface
             'Hop hop hop ! Et notre répétition de scie musicale ?', 'En tout cas s’il cherchait pour du trouble, il est venu à la bonne place.'
         );
         $message = $messages[rand(0, count($messages)-1)];
-        $twitter->publish($message);
+        $published = $twitter->publish($message);
+        $output->writeln(sprintf('%s => %s', $published->id_str, $published->text));
     }
 
 }
