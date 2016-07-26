@@ -12,6 +12,7 @@ class Twitter
     private $actions = array(
         'connexion' => 'account/verify_credentials',
         'update' => 'statuses/update',
+        'search' => 'search/tweets',
     );
 
     /**
@@ -23,6 +24,10 @@ class Twitter
         $this->oauth = $oauth;
     }
 
+    /**
+     * @param $status
+     * @return array|object
+     */
     public function publish($status){
         $array = array(
             'status' => $status,
@@ -30,16 +35,33 @@ class Twitter
         return $this->oauth->post($this->getUrl('update'), $array);
     }
 
+    /**
+     * @return array|object
+     */
     public function testConnection() {
         return $this->oauth->get($this->getUrl('connexion'));
     }
 
+    /**
+     * @param $terms
+     * @return array|object
+     */
+    public function search($terms) {
+        return $this->oauth->get($this->getUrl('search'), array(
+            'q' => $terms,
+        ));
+    }
+
+    /**
+     * @param string $type
+     * @return string
+     * @throws \InvalidArgumentException
+     */
     private function getUrl($type) {
         if (array_key_exists($type, $this->actions)) {
             return $this->actions[$type];
         }
-        throw new \InvalidArgumentException('Invalid url type');
+        throw new \InvalidArgumentException('Invalid twitter url type');
     }
-
 
 }
