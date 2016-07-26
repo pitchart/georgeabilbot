@@ -25,6 +25,7 @@ $application->addCommands([
     new Command\Info(),
     new Command\Test(),
     new Command\Bot(),
+    new Command\Search(),
 ]);
 $application->setDefaultCommand('info');
 $application->run();
