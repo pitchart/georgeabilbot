@@ -46,10 +46,17 @@ class Twitter
      * @param $terms
      * @return array|object
      */
-    public function search($terms) {
-        return $this->oauth->get($this->getUrl('search'), array(
+    public function search($terms, $count = 20, $lang = null) {
+        $query = array(
             'q' => $terms,
-        ));
+            'count' => $count,
+            'include_entities' => false,
+            'result_type' => 'recent',
+        );
+        if ($lang !== null) {
+            $query['lang'] = $lang;
+        }
+        return $this->oauth->get($this->getUrl('search'), $query);
     }
 
     /**
